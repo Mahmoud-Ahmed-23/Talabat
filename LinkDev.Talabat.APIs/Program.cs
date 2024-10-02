@@ -18,7 +18,7 @@ namespace LinkDev.Talabat.APIs
 			builder.Services.AddSwaggerGen();
 
 			#endregion
-
+			 
 
 			
 			var app = builder.Build();
