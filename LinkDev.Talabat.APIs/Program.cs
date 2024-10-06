@@ -43,10 +43,12 @@ namespace LinkDev.Talabat.APIs
 
 				if (!pendingMigration.Any())
 					await dbContext.Database.MigrateAsync();
+
+				await StoreContextSeed.SeedAsync(dbContext);
 			}
 			catch (Exception ex)
 			{
-				var logger=LoggerFactory.CreateLogger<Program>();
+				var logger = LoggerFactory.CreateLogger<Program>();
 				logger.LogError(ex, "an Error in Migration");
 			}
 
