@@ -7,7 +7,7 @@ namespace LinkDev.Talabat.APIs
 {
 	public class Program
 	{
-		public static void Main(string[] args)
+		public static async Task Main(string[] args)
 		{
 			var webApplicationBuilder = WebApplication.CreateBuilder(args);
 
@@ -26,11 +26,29 @@ namespace LinkDev.Talabat.APIs
 
 			#endregion
 
-
-
 			var app = webApplicationBuilder.Build();
 
+			using var Scope = app.Services.CreateAsyncScope();
 
+			var Services = Scope.ServiceProvider;
+
+			var dbContext = Services.GetRequiredService<StoreContext>();
+
+			var LoggerFactory = Services.GetRequiredService<ILoggerFactory>();
+
+
+			try
+			{
+				var pendingMigration = dbContext.Database.GetPendingMigrations();
+
+				if (!pendingMigration.Any())
+					await dbContext.Database.MigrateAsync();
+			}
+			catch (Exception ex)
+			{
+				var logger=LoggerFactory.CreateLogger<Program>();
+				logger.LogError(ex, "an Error in Migration");
+			}
 
 			#region Configure Kestrel Middlewares
 
