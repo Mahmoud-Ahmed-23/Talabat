@@ -21,15 +21,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{387F4C
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dashboard", "Dashboard", "{32D94DDF-918D-4BB3-A964-F10B9910AB19}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinkDev.Talabat.Core.Domain", "LinkDev.Talabat.Core.Domain\LinkDev.Talabat.Core.Domain.csproj", "{1C8ACA1F-2166-4989-ACAA-03D779D402B5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinkDev.Talabat.Core.Domain", "LinkDev.Talabat.Core.Domain\LinkDev.Talabat.Core.Domain.csproj", "{1C8ACA1F-2166-4989-ACAA-03D779D402B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinkDev.Talabat.Core.Application", "LinkDev.Talabat.Core.Application\LinkDev.Talabat.Core.Application.csproj", "{D156563C-BE7B-49C4-B9F0-9E269C28DEC8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinkDev.Talabat.Core.Application", "LinkDev.Talabat.Core.Application\LinkDev.Talabat.Core.Application.csproj", "{D156563C-BE7B-49C4-B9F0-9E269C28DEC8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinkDev.Talabat.Core.Application.Abstraction", "LinkDev.Talabat.Core.Application.Abstraction\LinkDev.Talabat.Core.Application.Abstraction.csproj", "{CB4CE49E-58FA-4BE9-9B26-D884E7A55A5C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinkDev.Talabat.Core.Application.Abstraction", "LinkDev.Talabat.Core.Application.Abstraction\LinkDev.Talabat.Core.Application.Abstraction.csproj", "{CB4CE49E-58FA-4BE9-9B26-D884E7A55A5C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinkDev.Talabat.Infratructure", "LinkDev.Talabat.Infratructure\LinkDev.Talabat.Infratructure.csproj", "{A22098E9-7FC9-4F26-8F2D-3BF488DCBEF8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinkDev.Talabat.Infratructure", "LinkDev.Talabat.Infratructure\LinkDev.Talabat.Infratructure.csproj", "{A22098E9-7FC9-4F26-8F2D-3BF488DCBEF8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinkDev.Talabat.Infratructure.Persistence", "LinkDev.Talabat.Infratructure.Persistence\LinkDev.Talabat.Infratructure.Persistence.csproj", "{A2311BCF-3710-4B1A-97CE-B8BCF74F60FA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinkDev.Talabat.Infratructure.Persistence", "LinkDev.Talabat.Infratructure.Persistence\LinkDev.Talabat.Infratructure.Persistence.csproj", "{A2311BCF-3710-4B1A-97CE-B8BCF74F60FA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinkDev.Talabat.APIs.Controllers", "LinkDev.Talabat.APIs.Controllers\LinkDev.Talabat.APIs.Controllers.csproj", "{A35499BC-FD57-4337-AB09-94005FA663CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,6 +63,10 @@ Global
 		{A2311BCF-3710-4B1A-97CE-B8BCF74F60FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A2311BCF-3710-4B1A-97CE-B8BCF74F60FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A2311BCF-3710-4B1A-97CE-B8BCF74F60FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A35499BC-FD57-4337-AB09-94005FA663CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A35499BC-FD57-4337-AB09-94005FA663CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A35499BC-FD57-4337-AB09-94005FA663CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A35499BC-FD57-4337-AB09-94005FA663CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -78,6 +84,7 @@ Global
 		{CB4CE49E-58FA-4BE9-9B26-D884E7A55A5C} = {C32772B6-AE06-49D3-BF01-9AD77D9B9C0C}
 		{A22098E9-7FC9-4F26-8F2D-3BF488DCBEF8} = {DC82C3FF-691C-495D-8C83-C4CB6024250C}
 		{A2311BCF-3710-4B1A-97CE-B8BCF74F60FA} = {DC82C3FF-691C-495D-8C83-C4CB6024250C}
+		{A35499BC-FD57-4337-AB09-94005FA663CB} = {B073E4E9-4105-479C-A5D7-4AFF6B35DDB9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {91FE9D5C-ADBB-4022-9622-749C484A45AE}

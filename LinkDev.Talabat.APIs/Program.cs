@@ -1,9 +1,11 @@
 
+using LinkDev.Talabat.APIs.Controllers;
 using LinkDev.Talabat.APIs.Services;
 using LinkDev.Talabat.Core.Application.Abstraction;
 using LinkDev.Talabat.Infratructure.Persistence;
 using LinkDev.Talabat.Infratructure.Persistence.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace LinkDev.Talabat.APIs
 {
@@ -18,7 +20,8 @@ namespace LinkDev.Talabat.APIs
 
 			// Add services to the container.
 
-			webApplicationBuilder.Services.AddControllers();
+			webApplicationBuilder.Services.AddControllers()
+				.AddApplicationPart(typeof(APIs.Controllers.AssemblyInformation).Assembly);
 			// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 			webApplicationBuilder.Services.AddEndpointsApiExplorer();
 			webApplicationBuilder.Services.AddSwaggerGen();
@@ -27,6 +30,8 @@ namespace LinkDev.Talabat.APIs
 
 			webApplicationBuilder.Services.AddPersistenceServices(webApplicationBuilder.Configuration);
 			//DependencyInjection.AddPersistenceServices(webApplicationBuilder.Services, webApplicationBuilder.Configuration);
+
+
 
 			#endregion
 
@@ -39,7 +44,6 @@ namespace LinkDev.Talabat.APIs
 			var dbContext = Services.GetRequiredService<StoreContext>();
 
 			var LoggerFactory = Services.GetRequiredService<ILoggerFactory>();
-
 
 			try
 			{
