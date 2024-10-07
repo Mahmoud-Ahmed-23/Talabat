@@ -6,6 +6,7 @@ using LinkDev.Talabat.Infratructure.Persistence;
 using LinkDev.Talabat.Infratructure.Persistence.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using LinkDev.Talabat.Core.Application;
 
 namespace LinkDev.Talabat.APIs
 {
@@ -28,6 +29,7 @@ namespace LinkDev.Talabat.APIs
 
 			webApplicationBuilder.Services.AddScoped(typeof(ILoggedInUserService), typeof(LoggedInUserService));
 
+			webApplicationBuilder.Services.AddApplicationServices();
 			webApplicationBuilder.Services.AddPersistenceServices(webApplicationBuilder.Configuration);
 			//DependencyInjection.AddPersistenceServices(webApplicationBuilder.Services, webApplicationBuilder.Configuration);
 

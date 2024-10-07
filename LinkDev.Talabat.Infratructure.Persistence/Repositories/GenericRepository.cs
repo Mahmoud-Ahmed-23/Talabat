@@ -1,5 +1,6 @@
 ﻿using LinkDev.Talabat.Core.Domain.Common;
 using LinkDev.Talabat.Core.Domain.Contracts;
+using LinkDev.Talabat.Core.Domain.Entities.Products;
 using LinkDev.Talabat.Infratructure.Persistence.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
@@ -25,12 +26,26 @@ namespace LinkDev.Talabat.Infratructure.Persistence.Repositories
 		}
 
 		public async Task<IEnumerable<TEntity>> GetAllAsync(bool withTraking)
-		=> (withTraking) ? await _dbContext.Set<TEntity>().ToListAsync()
-			: await _dbContext.Set<TEntity>().AsNoTracking().ToListAsync();
+		{
+			if (typeof(TEntity) == typeof(Product))
+			{
+				return (IEnumerable<TEntity>)((withTraking) ? await _dbContext.Set<Product>().Include(p => p.Brand).Include(p => p.Category).ToListAsync()
+				: await _dbContext.Set<Product>().Include(p => p.Brand).Include(p => p.Category).AsNoTracking().ToListAsync());
+
+			}
+			return (withTraking) ? await _dbContext.Set<TEntity>().ToListAsync()
+				: await _dbContext.Set<TEntity>().AsNoTracking().ToListAsync();
+
+		}
 
 		public async Task<TEntity> GetAsync(TKey id)
-			=> await _dbContext.Set<TEntity>().FindAsync(id);
-
+		{
+			if (typeof(TEntity) == typeof(Product))
+			{
+				return (await _dbContext.Set<Product>().Include(p => p.Brand).Include(p => p.Category).FirstOrDefaultAsync(p => p.Id.Equals(id))) as TEntity;
+			}
+			return await _dbContext.Set<TEntity>().FindAsync(id);
+		}
 		public async Task AddAsync(TEntity entity)
 		=> await _dbContext.Set<TEntity>().AddAsync(entity);
 		public void Update(TEntity entity)
