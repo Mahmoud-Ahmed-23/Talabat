@@ -14,7 +14,7 @@ namespace LinkDev.Talabat.Infratructure.Persistence.Repositories
 {
 	internal class GenericRepository<TEntity, TKey> :
 		IGenericRepsitory<TEntity, TKey> where TEntity :
-		BaseEntity<TKey> where TKey : IEquatable<TKey>
+		BaseAuditableEntity<TKey> where TKey : IEquatable<TKey>
 	{
 
 		private readonly StoreContext _dbContext;

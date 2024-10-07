@@ -30,7 +30,7 @@ namespace LinkDev.Talabat.Infratructure.Persistence.UnitOfWork
 		=> _dbContext.DisposeAsync();
 
 		public IGenericRepsitory<TEntity, TKey> GetRepsitory<TEntity, TKey>()
-			where TEntity : BaseEntity<TKey>
+			where TEntity : BaseAuditableEntity<TKey>
 			where TKey : IEquatable<TKey>
 		{
 			///var typeName = typeof(TEntity).Name;
