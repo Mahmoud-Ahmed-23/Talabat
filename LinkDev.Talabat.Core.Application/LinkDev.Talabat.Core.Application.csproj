@@ -16,8 +16,4 @@
     <ProjectReference Include="..\LinkDev.Talabat.Infratructure.Persistence\LinkDev.Talabat.Infratructure.Persistence.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
-
 </Project>

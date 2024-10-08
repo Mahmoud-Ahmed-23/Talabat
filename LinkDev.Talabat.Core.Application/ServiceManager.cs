@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using LinkDev.Talabat.Core.Application.Abstraction;
 using LinkDev.Talabat.Core.Application.Abstraction.Product;
-using LinkDev.Talabat.Core.Application.Products;
+using LinkDev.Talabat.Core.Application.Services.Products;
 using LinkDev.Talabat.Core.Domain.Contracts;
 using LinkDev.Talabat.Core.Domain.Entities.Products;
 using System;

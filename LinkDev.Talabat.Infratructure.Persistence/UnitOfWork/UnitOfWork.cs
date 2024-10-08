@@ -3,6 +3,7 @@ using LinkDev.Talabat.Core.Domain.Contracts;
 using LinkDev.Talabat.Core.Domain.Entities.Products;
 using LinkDev.Talabat.Infratructure.Persistence.Data;
 using LinkDev.Talabat.Infratructure.Persistence.Repositories;
+using LinkDev.Talabat.Infratructure.Persistence.Repositories.GenericRepository;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
