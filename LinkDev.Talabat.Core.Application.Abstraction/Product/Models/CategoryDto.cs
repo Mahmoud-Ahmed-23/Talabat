@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LinkDev.Talabat.Core.Domain.Common
+namespace LinkDev.Talabat.Core.Application.Abstraction.Product.Models
 {
-	public class BaseEntity<TKey> where TKey : IEquatable<TKey>
+	public class CategoryDto
 	{
 		public int Id { get; set; }
+		public required string Name { get; set; }
 	}
 }

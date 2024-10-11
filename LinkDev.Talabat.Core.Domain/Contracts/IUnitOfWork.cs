@@ -12,7 +12,7 @@ namespace LinkDev.Talabat.Core.Domain.Contracts
 	{
 
 		IGenericRepsitory<TEntity, TKey> GetRepsitory<TEntity, TKey>()
-		where TEntity : BaseEntity<TKey> where TKey : IEquatable<TKey>;
+		where TEntity : BaseAuditableEntity<TKey> where TKey : IEquatable<TKey>;
 
 		Task<int> CompleteAsync();
 

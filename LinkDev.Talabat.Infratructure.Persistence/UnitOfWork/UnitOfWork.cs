@@ -3,6 +3,7 @@ using LinkDev.Talabat.Core.Domain.Contracts;
 using LinkDev.Talabat.Core.Domain.Entities.Products;
 using LinkDev.Talabat.Infratructure.Persistence.Data;
 using LinkDev.Talabat.Infratructure.Persistence.Repositories;
+using LinkDev.Talabat.Infratructure.Persistence.Repositories.GenericRepository;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace LinkDev.Talabat.Infratructure.Persistence.UnitOfWork
 {
-	internal class UnitOfWork : IUnitOfWork
+	public class UnitOfWork : IUnitOfWork
 	{
 		private readonly StoreContext _dbContext;
 		private readonly ConcurrentDictionary<string, object> _repositories;
@@ -30,7 +31,7 @@ namespace LinkDev.Talabat.Infratructure.Persistence.UnitOfWork
 		=> _dbContext.DisposeAsync();
 
 		public IGenericRepsitory<TEntity, TKey> GetRepsitory<TEntity, TKey>()
-			where TEntity : BaseEntity<TKey>
+			where TEntity : BaseAuditableEntity<TKey>
 			where TKey : IEquatable<TKey>
 		{
 			///var typeName = typeof(TEntity).Name;
