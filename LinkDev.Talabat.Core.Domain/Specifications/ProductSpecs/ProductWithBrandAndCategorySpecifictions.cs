@@ -9,20 +9,41 @@ namespace LinkDev.Talabat.Core.Domain.Specifications.ProductSpecs
 {
 	public class ProductWithBrandAndCategorySpecifictions : BaseSpecifications<Product, int>
 	{
-		public ProductWithBrandAndCategorySpecifictions() : base()
+		public ProductWithBrandAndCategorySpecifictions(string? sort) : base()
 		{
-			Includes.Add(p => p.Brand!);
+			AddInclude();
 
-			Includes.Add(p => p.Category!);
+			switch (sort)
+			{
+				case "nameDesc":
+					AddOrderDesc(p => p.Name);
+					break;
+				case "priceAsc":
+					AddOrder(p => p.Price);
+					break;
+				case "priceDesc":
+					AddOrderDesc(p => p.Price);
+					break;
+				default:
+					AddOrder(p => p.Name);
+					break;
 
+			}
 		}
 
 		public ProductWithBrandAndCategorySpecifictions(int Id) : base(Id)
 		{
+			AddInclude();
+		}
+
+		private protected override void AddInclude()
+		{
+			base.AddInclude();
 
 			Includes.Add(p => p.Brand!);
 
 			Includes.Add(p => p.Category!);
 		}
+
 	}
 }

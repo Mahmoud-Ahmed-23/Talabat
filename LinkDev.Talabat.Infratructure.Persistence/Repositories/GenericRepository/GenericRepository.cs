@@ -38,11 +38,11 @@ namespace LinkDev.Talabat.Infratructure.Persistence.Repositories.GenericReposito
 
 		}
 
-		public async Task<IEnumerable<TEntity>> GetAllWithSpecAsync(ISpecifications<TEntity, TKey> spec, bool withTraking = true)
+		public async Task<IEnumerable<TEntity>> GetAllWithSpecAsync(ISpecifications<TEntity, TKey> spec)
 		{
 			return await ApplySpecifications(spec).ToListAsync();
 		}
-
+		
 		public async Task<TEntity> GetAsync(TKey id)
 		{
 			if (typeof(TEntity) == typeof(Product))
@@ -73,6 +73,8 @@ namespace LinkDev.Talabat.Infratructure.Persistence.Repositories.GenericReposito
 		{
 			return SpecificationsEvaluator<TEntity, TKey>.GetQuery(_dbContext.Set<TEntity>(), spec);
 		}
+
+		
 		#endregion
 
 

@@ -15,14 +15,30 @@ namespace LinkDev.Talabat.Core.Domain.Specifications
 	{
 		public Expression<Func<TEntity, bool>>? Criteria { get; set; }
 		public List<Expression<Func<TEntity, object>>> Includes { get; set; } = new List<Expression<Func<TEntity, object>>>();
+		public Expression<Func<TEntity, object>>? OrderBy { get; set; }
+		public Expression<Func<TEntity, object>>? OrderByDesc { get; set; }
 
-        public BaseSpecifications()
+		public BaseSpecifications()
         {
             
         }
 		public BaseSpecifications(TKey id)
 		{
 			Criteria = E => E.Id.Equals(id);
+		}
+
+		private protected virtual void AddInclude()
+		{
+
+		}
+
+		private protected void AddOrder(Expression<Func<TEntity,object>>? orderByExpression)
+		{
+			OrderBy = orderByExpression;
+		}
+		private protected void AddOrderDesc(Expression<Func<TEntity, object>>? orderByExpression)
+		{
+			OrderByDesc = orderByExpression;
 		}
 	}
 }

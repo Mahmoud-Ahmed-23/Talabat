@@ -12,7 +12,7 @@ namespace LinkDev.Talabat.Core.Domain.Contracts
 	{
 
 		Task<IEnumerable<TEntity>> GetAllAsync(bool withTraking = true);
-		Task<IEnumerable<TEntity>> GetAllWithSpecAsync(ISpecifications<TEntity, TKey> spec, bool withTraking = true);
+		Task<IEnumerable<TEntity>> GetAllWithSpecAsync(ISpecifications<TEntity, TKey> spec);
 
 		Task<TEntity> GetAsync(TKey id);
 		Task<TEntity> GetWithSpecAsync(ISpecifications<TEntity, TKey> spec);
