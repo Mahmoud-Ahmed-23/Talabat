@@ -2,8 +2,8 @@
 {
 	public class Pagination<T>
 	{
-		public int PageIndex { get; set; }
-		public int PageSize { get; set; }
+		public int PageIndex { get; set; } = 1;
+		public int PageSize { get; set; } = 5;
 		public int Count { get; set; }
 		public required IEnumerable<T> Data { get; set; }
 
