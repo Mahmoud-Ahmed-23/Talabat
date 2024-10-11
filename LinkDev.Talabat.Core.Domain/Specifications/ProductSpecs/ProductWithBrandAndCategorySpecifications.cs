@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace LinkDev.Talabat.Core.Domain.Specifications.ProductSpecs
 {
-	public class ProductWithBrandAndCategorySpecifictions : BaseSpecifications<Product, int>
+	public class ProductWithBrandAndCategorySpecifications : BaseSpecifications<Product, int>
 	{
-		public ProductWithBrandAndCategorySpecifictions(string? sort, int? brandId, int? categoryId) :
+		public ProductWithBrandAndCategorySpecifications(string? sort, int? brandId, int? categoryId, int PageSize, int PageIndex) :
 			base(
 
 			p =>
@@ -37,9 +37,13 @@ namespace LinkDev.Talabat.Core.Domain.Specifications.ProductSpecs
 					break;
 
 			}
+
+			ApplyPagination((PageIndex - 1) * PageSize, PageSize);
+
+
 		}
 
-		public ProductWithBrandAndCategorySpecifictions(int Id) : base(Id)
+		public ProductWithBrandAndCategorySpecifications(int Id) : base(Id)
 		{
 			AddInclude();
 		}

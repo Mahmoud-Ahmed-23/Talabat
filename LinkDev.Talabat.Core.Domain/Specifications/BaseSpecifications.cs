@@ -17,11 +17,14 @@ namespace LinkDev.Talabat.Core.Domain.Specifications
 		public List<Expression<Func<TEntity, object>>> Includes { get; set; } = new List<Expression<Func<TEntity, object>>>();
 		public Expression<Func<TEntity, object>>? OrderBy { get; set; }
 		public Expression<Func<TEntity, object>>? OrderByDesc { get; set; }
+		public int Skip { get; set; }
+		public int Take { get; set; }
+		public bool IsPaginationEnabled { get; set; }
 
 		public BaseSpecifications()
-        {
-            
-        }
+		{
+
+		}
 		public BaseSpecifications(Expression<Func<TEntity, bool>>? criteria)
 		{
 			Criteria = criteria;
@@ -36,13 +39,20 @@ namespace LinkDev.Talabat.Core.Domain.Specifications
 
 		}
 
-		private protected void AddOrder(Expression<Func<TEntity,object>>? orderByExpression)
+		private protected void AddOrder(Expression<Func<TEntity, object>>? orderByExpression)
 		{
 			OrderBy = orderByExpression;
 		}
 		private protected void AddOrderDesc(Expression<Func<TEntity, object>>? orderByExpression)
 		{
 			OrderByDesc = orderByExpression;
+		}
+
+		private protected void ApplyPagination(int skip, int take)
+		{
+			IsPaginationEnabled = true;
+			Skip = skip;
+			Take = take;
 		}
 	}
 }

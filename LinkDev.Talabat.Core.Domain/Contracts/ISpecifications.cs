@@ -15,5 +15,9 @@ namespace LinkDev.Talabat.Core.Domain.Contracts
 
 		public Expression<Func<TEntity, object>>? OrderByDesc { get; set; }
 
-	}
+        public int Skip { get; set; }
+        public int Take { get; set; }
+        public bool IsPaginationEnabled { get; set; }
+
+    }
 }

@@ -29,6 +29,10 @@ namespace LinkDev.Talabat.Infratructure.Persistence.Repositories
 
 			//dbcontext.set<TEntity>.Where(E => E.Id == id).Include(P => P.Brand)....
 
+			if (spec.IsPaginationEnabled)
+				query = query.Skip(spec.Skip).Take(spec.Take);
+
+
 			query = spec.Includes.Aggregate(query, (currentQuery, include) => currentQuery.Include(include));
 
 			return query;
