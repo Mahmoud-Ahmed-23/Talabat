@@ -9,7 +9,15 @@ namespace LinkDev.Talabat.Core.Domain.Specifications.ProductSpecs
 {
 	public class ProductWithBrandAndCategorySpecifictions : BaseSpecifications<Product, int>
 	{
-		public ProductWithBrandAndCategorySpecifictions(string? sort) : base()
+		public ProductWithBrandAndCategorySpecifictions(string? sort, int? brandId, int? categoryId) :
+			base(
+
+			p =>
+			(!brandId.HasValue || p.BrandId == brandId.Value)
+			&&
+			(!categoryId.HasValue || p.CategoryId == categoryId.Value)
+		)
+
 		{
 			AddInclude();
 

@@ -22,6 +22,10 @@ namespace LinkDev.Talabat.Core.Domain.Specifications
         {
             
         }
+		public BaseSpecifications(Expression<Func<TEntity, bool>>? criteria)
+		{
+			Criteria = criteria;
+		}
 		public BaseSpecifications(TKey id)
 		{
 			Criteria = E => E.Id.Equals(id);
