@@ -57,6 +57,10 @@ namespace LinkDev.Talabat.Infratructure.Persistence.Repositories.GenericReposito
 			return await ApplySpecifications(spec).FirstOrDefaultAsync();
 		}
 
+		public async Task<int> GetCountAsync(ISpecifications<TEntity, TKey> spec)
+		{
+			return await ApplySpecifications(spec).CountAsync();
+		}
 		public async Task AddAsync(TEntity entity)
 		=> await _dbContext.Set<TEntity>().AddAsync(entity);
 
@@ -75,6 +79,8 @@ namespace LinkDev.Talabat.Infratructure.Persistence.Repositories.GenericReposito
 		}
 
 		
+
+
 		#endregion
 
 
