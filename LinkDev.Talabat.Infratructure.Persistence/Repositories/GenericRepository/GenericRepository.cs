@@ -78,7 +78,8 @@ namespace LinkDev.Talabat.Infratructure.Persistence.Repositories.GenericReposito
 			return SpecificationsEvaluator<TEntity, TKey>.GetQuery(_dbContext.Set<TEntity>(), spec);
 		}
 
-		
+
+
 
 
 		#endregion

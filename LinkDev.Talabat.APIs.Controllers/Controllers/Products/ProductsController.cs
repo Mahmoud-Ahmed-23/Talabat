@@ -1,11 +1,12 @@
 ﻿using LinkDev.Talabat.APIs.Controllers.Controllers.Base;
+using LinkDev.Talabat.APIs.Controllers.Controllers.Errors;
 using LinkDev.Talabat.Core.Application.Abstraction;
 using LinkDev.Talabat.Core.Application.Abstraction.Product.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LinkDev.Talabat.APIs.Controllers.Controllers.Products
 {
-	public class ProductsController(IServiceManager serviceManager) : ApiControllerBase
+	public class ProductsController(IServiceManager serviceManager) : BaseApiController
 	{
 
 		[HttpGet]
@@ -21,7 +22,7 @@ namespace LinkDev.Talabat.APIs.Controllers.Controllers.Products
 			var Product = await serviceManager.ProductService.GetProductAsync(id);
 
 			if (Product == null)
-				return NotFound();
+				return NotFound(new ApiResponse(404, $"The Product with {id} not found"));
 
 			return Ok(Product);
 		}
