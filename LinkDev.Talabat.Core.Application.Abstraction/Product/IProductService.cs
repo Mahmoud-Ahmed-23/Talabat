@@ -9,7 +9,7 @@ namespace LinkDev.Talabat.Core.Application.Abstraction.Product
 {
 	public interface IProductService
 	{
-		Task<IEnumerable<ProductToReturnDto>> GetProductsAsync();
+		Task<Pagination<ProductToReturnDto>> GetProductsAsync(ProductSpecParams specParams);
 
 		Task<ProductToReturnDto> GetProductAsync(int id);
 

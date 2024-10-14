@@ -21,7 +21,17 @@ namespace LinkDev.Talabat.Infratructure.Persistence.Repositories
 			if (spec.Criteria is not null)
 				query = query.Where(spec.Criteria); //dbcontext.set<TEntity>.Where(E => E.Id == id)
 
+			if(spec.OrderByDesc is not null)
+				query = query.OrderByDescending(spec.OrderByDesc);
+			else if(spec.OrderBy is not null)
+				query = query.OrderBy(spec.OrderBy);
+
+
 			//dbcontext.set<TEntity>.Where(E => E.Id == id).Include(P => P.Brand)....
+
+			if (spec.IsPaginationEnabled)
+				query = query.Skip(spec.Skip).Take(spec.Take);
+
 
 			query = spec.Includes.Aggregate(query, (currentQuery, include) => currentQuery.Include(include));
 
