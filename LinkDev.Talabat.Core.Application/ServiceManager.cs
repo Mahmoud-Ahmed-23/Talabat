@@ -2,7 +2,7 @@
 using LinkDev.Talabat.Core.Application.Abstraction;
 using LinkDev.Talabat.Core.Application.Abstraction.Product;
 using LinkDev.Talabat.Core.Application.Services.Products;
-using LinkDev.Talabat.Core.Domain.Contracts;
+using LinkDev.Talabat.Core.Domain.Contracts.Persistence;
 using LinkDev.Talabat.Core.Domain.Entities.Products;
 using System;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace LinkDev.Talabat.Core.Application
 {
-	internal class ServiceManager : IServiceManager
+    internal class ServiceManager : IServiceManager
 	{
 
 		private readonly Lazy<IProductService> _productService;

@@ -10,7 +10,7 @@ using LinkDev.Talabat.Core.Application;
 using LinkDev.Talabat.APIs.Controllers.Controllers.Errors;
 using Microsoft.AspNetCore.Mvc;
 using LinkDev.Talabat.APIs.Middelwares;
-
+using LinkDev.Talabat.Infratructure;
 namespace LinkDev.Talabat.APIs
 {
 	public class Program
@@ -49,6 +49,7 @@ namespace LinkDev.Talabat.APIs
 
 			webApplicationBuilder.Services.AddApplicationServices();
 			webApplicationBuilder.Services.AddPersistenceServices(webApplicationBuilder.Configuration);
+			webApplicationBuilder.Services.AddInfrastructureServices(webApplicationBuilder.Configuration);
 			//DependencyInjection.AddPersistenceServices(webApplicationBuilder.Services, webApplicationBuilder.Configuration);
 
 

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using LinkDev.Talabat.Core.Application.Abstraction.Product;
 using LinkDev.Talabat.Core.Application.Abstraction.Product.Models;
-using LinkDev.Talabat.Core.Domain.Contracts;
+using LinkDev.Talabat.Core.Domain.Contracts.Persistence;
 using LinkDev.Talabat.Core.Domain.Entities.Products;
 using LinkDev.Talabat.Core.Domain.Specifications;
 using LinkDev.Talabat.Core.Domain.Specifications.ProductSpecs;
@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace LinkDev.Talabat.Core.Application.Services.Products
 {
-	internal class ProductService(IUnitOfWork unitOfWork, IMapper mapper) : IProductService
+    internal class ProductService(IUnitOfWork unitOfWork, IMapper mapper) : IProductService
 	{
 
 		public async Task<Pagination<ProductToReturnDto>> GetProductsAsync(ProductSpecParams specParams)
