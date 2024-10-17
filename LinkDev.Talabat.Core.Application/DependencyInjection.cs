@@ -8,9 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using LinkDev.Talabat.Infratructure.Persistence.UnitOfWork;
 using LinkDev.Talabat.Core.Domain.Contracts.Persistence;
+using LinkDev.Talabat.Core.Application.Abstraction.Basket;
+using LinkDev.Talabat.Core.Application.Services.Basket;
+using AutoMapper;
+using Microsoft.Extensions.Configuration;
+using LinkDev.Talabat.Core.Domain.Contracts.Infrastructure;
 namespace LinkDev.Talabat.Core.Application
 {
-    public static class DependencyInjection
+	public static class DependencyInjection
 	{
 		public static IServiceCollection AddApplicationServices(this IServiceCollection services)
 		{
@@ -20,6 +25,18 @@ namespace LinkDev.Talabat.Core.Application
 			services.AddAutoMapper(typeof(MappingProfile));
 
 			services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
+
+			//services.AddScoped(typeof(IBasketService), typeof(BasketService));
+			//services.AddScoped(typeof(Func<IBasketService>), typeof(Func<BasketService>));
+
+			services.AddScoped(typeof(Func<IBasketService>), (serviceProvider) =>
+			{
+				var mapper = serviceProvider.GetRequiredService<IMapper>();
+				var configuration = serviceProvider.GetRequiredService<IConfiguration>();
+				var repository = serviceProvider.GetRequiredService<IBasketRepository>();
+
+				return new BasketService(repository, mapper, configuration);
+			});
 
 			return services;
 		}
