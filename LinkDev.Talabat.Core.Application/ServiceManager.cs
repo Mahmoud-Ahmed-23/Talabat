@@ -25,17 +25,18 @@ namespace LinkDev.Talabat.Core.Application
 		private readonly Lazy<IProductService> _productService;
 		private readonly Lazy<IBasketService> _basketService;
 
-		public ServiceManager(IUnitOfWork unitOfWork, IMapper mapper, Lazy<IBasketService> basketService, IConfiguration configuration, Func<IBasketService> basketServiceFactory)
+		public ServiceManager(IUnitOfWork unitOfWork, IMapper mapper, IConfiguration configuration, Func<IBasketService> basketServiceFactory)
 		{
 			_unitOfWork = unitOfWork;
 			_mapper = mapper;
 			_configuration = configuration;
 			_productService = new Lazy<IProductService>(() => new ProductService(_unitOfWork, _mapper));
-			_basketService = new Lazy<IBasketService>(basketServiceFactory, true);
+			_basketService = new Lazy<IBasketService>(basketServiceFactory);
 		}
 
 		public IProductService ProductService => _productService.Value;
 
 		public IBasketService BasketService => _basketService.Value;
+
 	}
 }

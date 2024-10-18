@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using LinkDev.Talabat.Core.Domain.Contracts.Infrastructure;
+using LinkDev.Talabat.Infratructure.Basket_Repository;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using StackExchange.Redis;
 using System;
@@ -22,6 +24,8 @@ namespace LinkDev.Talabat.Infratructure
 				return connectionMultiplexerObj;
 
 			});
+
+			services.AddScoped(typeof(IBasketRepository),typeof(BasketRepository));
 
 			return services;
 		}
