@@ -6,7 +6,7 @@ using System.Reflection;
 
 namespace LinkDev.Talabat.Infratructure.Persistence._Identity
 {
-	internal class StoreIdentityDbContext : IdentityDbContext<ApplicationUser>
+	public class StoreIdentityDbContext : IdentityDbContext<ApplicationUser>
 	{
 		public StoreIdentityDbContext(DbContextOptions<StoreIdentityDbContext> options)
 			: base(options)

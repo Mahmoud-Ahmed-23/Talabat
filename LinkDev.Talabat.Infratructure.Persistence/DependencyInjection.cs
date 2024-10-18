@@ -1,7 +1,9 @@
 ﻿using LinkDev.Talabat.Core.Domain.Contracts.Persistence;
+using LinkDev.Talabat.Core.Domain.Entities.Identity;
 using LinkDev.Talabat.Infratructure.Persistence._Identity;
 using LinkDev.Talabat.Infratructure.Persistence.Data;
 using LinkDev.Talabat.Infratructure.Persistence.Data.Interceptors;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
@@ -34,10 +36,14 @@ namespace LinkDev.Talabat.Infratructure.Persistence
 				options.UseSqlServer(configuration.GetConnectionString("IdentityContext"));
 			});
 
+
+			services.AddScoped(typeof(IStoreIdentityDbInitializer), typeof(StoreIdentityDbInitializer));
+
 			#endregion
 
 
 			services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork.UnitOfWork));
+
 			return services;
 		}
 	}

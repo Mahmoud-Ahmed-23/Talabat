@@ -11,6 +11,11 @@ using LinkDev.Talabat.APIs.Controllers.Controllers.Errors;
 using Microsoft.AspNetCore.Mvc;
 using LinkDev.Talabat.APIs.Middelwares;
 using LinkDev.Talabat.Infratructure;
+using Microsoft.AspNetCore.Identity;
+using LinkDev.Talabat.Core.Domain.Entities.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using LinkDev.Talabat.Infratructure.Persistence._Identity;
+using LinkDev.Talabat.APIs.Extensions;
 namespace LinkDev.Talabat.APIs
 {
 	public class Program
@@ -50,13 +55,37 @@ namespace LinkDev.Talabat.APIs
 			webApplicationBuilder.Services.AddApplicationServices();
 			webApplicationBuilder.Services.AddPersistenceServices(webApplicationBuilder.Configuration);
 			webApplicationBuilder.Services.AddInfrastructureServices(webApplicationBuilder.Configuration);
-			//DependencyInjection.AddPersistenceServices(webApplicationBuilder.Services, webApplicationBuilder.Configuration);
 
+			//DependencyInjection.AddPersistenceServices(webApplicationBuilder.Services, webApplicationBuilder.Configuration);
+			webApplicationBuilder.Services.AddIdentity<ApplicationUser, IdentityRole>((identityOptions) =>
+			{
+				identityOptions.SignIn.RequireConfirmedAccount = true;
+				identityOptions.SignIn.RequireConfirmedEmail = true;
+				identityOptions.SignIn.RequireConfirmedPhoneNumber = true;
+
+				identityOptions.Password.RequireNonAlphanumeric = true;
+				identityOptions.Password.RequiredUniqueChars = 2;
+				identityOptions.Password.RequiredLength = 6;
+				identityOptions.Password.RequireDigit = true;
+				identityOptions.Password.RequireLowercase = true;
+				identityOptions.Password.RequireUppercase = true;
+
+				identityOptions.User.RequireUniqueEmail = true;
+
+				identityOptions.Lockout.AllowedForNewUsers = true;
+				identityOptions.Lockout.MaxFailedAccessAttempts = 5;
+				identityOptions.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromHours(5);
+
+
+			})
+				.AddEntityFrameworkStores<StoreIdentityDbContext>();
 
 
 			#endregion
 
 			var app = webApplicationBuilder.Build();
+
+			await app.InitializerStoreIdentityContextAsync();
 
 			using var Scope = app.Services.CreateAsyncScope();
 
@@ -74,6 +103,7 @@ namespace LinkDev.Talabat.APIs
 					await dbContext.Database.MigrateAsync();
 
 				await StoreDbContextSeed.SeedAsync(dbContext);
+
 			}
 			catch (Exception ex)
 			{
