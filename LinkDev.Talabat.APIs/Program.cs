@@ -62,7 +62,7 @@ namespace LinkDev.Talabat.APIs
 
 			var Services = Scope.ServiceProvider;
 
-			var dbContext = Services.GetRequiredService<StoreContext>();
+			var dbContext = Services.GetRequiredService<StoreDbContext>();
 
 			var LoggerFactory = Services.GetRequiredService<ILoggerFactory>();
 
@@ -73,7 +73,7 @@ namespace LinkDev.Talabat.APIs
 				if (!pendingMigration.Any())
 					await dbContext.Database.MigrateAsync();
 
-				await StoreContextSeed.SeedAsync(dbContext);
+				await StoreDbContextSeed.SeedAsync(dbContext);
 			}
 			catch (Exception ex)
 			{
