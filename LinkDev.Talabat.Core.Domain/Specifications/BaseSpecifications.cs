@@ -1,5 +1,5 @@
 ﻿using LinkDev.Talabat.Core.Domain.Common;
-using LinkDev.Talabat.Core.Domain.Contracts;
+using LinkDev.Talabat.Core.Domain.Contracts.Persistence;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace LinkDev.Talabat.Core.Domain.Specifications
 {
-	public class BaseSpecifications<TEntity, TKey> : ISpecifications<TEntity, TKey>
+    public class BaseSpecifications<TEntity, TKey> : ISpecifications<TEntity, TKey>
 		where TEntity : BaseAuditableEntity<TKey>
 		where TKey : IEquatable<TKey>
 	{

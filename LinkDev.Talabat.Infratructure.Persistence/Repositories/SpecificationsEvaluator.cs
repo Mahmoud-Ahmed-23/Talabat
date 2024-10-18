@@ -1,5 +1,5 @@
 ﻿using LinkDev.Talabat.Core.Domain.Common;
-using LinkDev.Talabat.Core.Domain.Contracts;
+using LinkDev.Talabat.Core.Domain.Contracts.Persistence;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace LinkDev.Talabat.Infratructure.Persistence.Repositories
 {
-	internal static class SpecificationsEvaluator<TEntity, TKey>
+    internal static class SpecificationsEvaluator<TEntity, TKey>
 		where TEntity : BaseAuditableEntity<TKey>
 		where TKey : IEquatable<TKey>
 	{

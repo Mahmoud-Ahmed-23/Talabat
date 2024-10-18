@@ -1,5 +1,5 @@
 ﻿using LinkDev.Talabat.Core.Domain.Common;
-using LinkDev.Talabat.Core.Domain.Contracts;
+using LinkDev.Talabat.Core.Domain.Contracts.Persistence;
 using LinkDev.Talabat.Core.Domain.Entities.Products;
 using LinkDev.Talabat.Infratructure.Persistence.Data;
 using Microsoft.EntityFrameworkCore;
@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace LinkDev.Talabat.Infratructure.Persistence.Repositories.GenericRepository
 {
-	internal class GenericRepository<TEntity, TKey> :
+    internal class GenericRepository<TEntity, TKey> :
 		IGenericRepsitory<TEntity, TKey> where TEntity :
 		BaseAuditableEntity<TKey> where TKey : IEquatable<TKey>
 	{
@@ -78,7 +78,8 @@ namespace LinkDev.Talabat.Infratructure.Persistence.Repositories.GenericReposito
 			return SpecificationsEvaluator<TEntity, TKey>.GetQuery(_dbContext.Set<TEntity>(), spec);
 		}
 
-		
+
+
 
 
 		#endregion

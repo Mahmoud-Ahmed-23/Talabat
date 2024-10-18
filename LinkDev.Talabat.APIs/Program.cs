@@ -7,7 +7,10 @@ using LinkDev.Talabat.Infratructure.Persistence.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using LinkDev.Talabat.Core.Application;
-
+using LinkDev.Talabat.APIs.Controllers.Controllers.Errors;
+using Microsoft.AspNetCore.Mvc;
+using LinkDev.Talabat.APIs.Middelwares;
+using LinkDev.Talabat.Infratructure;
 namespace LinkDev.Talabat.APIs
 {
 	public class Program
@@ -22,6 +25,21 @@ namespace LinkDev.Talabat.APIs
 			// Add services to the container.
 
 			webApplicationBuilder.Services.AddControllers()
+				.ConfigureApiBehaviorOptions(options =>
+				{
+					options.SuppressModelStateInvalidFilter = false;
+					options.InvalidModelStateResponseFactory = (actionContext) =>
+					{
+						var errors = actionContext.ModelState.Where(p => p.Value!.Errors.Count > 0)
+									   .SelectMany(p => p.Value!.Errors)
+									   .Select(E => E.ErrorMessage);
+						return new BadRequestObjectResult(new ApiValidationErrorResponse()
+						{
+							Errors = errors
+						});
+					};
+
+				})
 				.AddApplicationPart(typeof(APIs.Controllers.AssemblyInformation).Assembly);
 			// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 			webApplicationBuilder.Services.AddEndpointsApiExplorer();
@@ -31,6 +49,7 @@ namespace LinkDev.Talabat.APIs
 
 			webApplicationBuilder.Services.AddApplicationServices();
 			webApplicationBuilder.Services.AddPersistenceServices(webApplicationBuilder.Configuration);
+			webApplicationBuilder.Services.AddInfrastructureServices(webApplicationBuilder.Configuration);
 			//DependencyInjection.AddPersistenceServices(webApplicationBuilder.Services, webApplicationBuilder.Configuration);
 
 
@@ -64,6 +83,8 @@ namespace LinkDev.Talabat.APIs
 
 			#region Configure Kestrel Middlewares
 
+			app.UseMiddleware<CustomExceptionHandlerMiddleware>();
+
 			// Configure the HTTP request pipeline.
 			if (app.Environment.IsDevelopment())
 			{
@@ -72,6 +93,10 @@ namespace LinkDev.Talabat.APIs
 			}
 
 			app.UseHttpsRedirection();
+
+
+			app.UseStatusCodePagesWithReExecute("/Errors/{0}");
+
 
 			app.UseAuthorization();
 
