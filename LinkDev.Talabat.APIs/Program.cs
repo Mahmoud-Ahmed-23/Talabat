@@ -16,6 +16,7 @@ using LinkDev.Talabat.Core.Domain.Entities.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using LinkDev.Talabat.Infratructure.Persistence._Identity;
 using LinkDev.Talabat.APIs.Extensions;
+using LinkDev.Talabat.Core.Domain.Contracts.Persistence;
 namespace LinkDev.Talabat.APIs
 {
 	public class Program
@@ -63,12 +64,12 @@ namespace LinkDev.Talabat.APIs
 				identityOptions.SignIn.RequireConfirmedEmail = true;
 				identityOptions.SignIn.RequireConfirmedPhoneNumber = true;
 
-				identityOptions.Password.RequireNonAlphanumeric = true;
-				identityOptions.Password.RequiredUniqueChars = 2;
-				identityOptions.Password.RequiredLength = 6;
-				identityOptions.Password.RequireDigit = true;
-				identityOptions.Password.RequireLowercase = true;
-				identityOptions.Password.RequireUppercase = true;
+				/// identityOptions.Password.RequireNonAlphanumeric = true;
+				/// identityOptions.Password.RequiredUniqueChars = 2;
+				/// identityOptions.Password.RequiredLength = 6;
+				/// identityOptions.Password.RequireDigit = true;
+				/// identityOptions.Password.RequireLowercase = true;
+				/// identityOptions.Password.RequireUppercase = true;
 
 				identityOptions.User.RequireUniqueEmail = true;
 
@@ -97,6 +98,7 @@ namespace LinkDev.Talabat.APIs
 
 			try
 			{
+
 				var pendingMigration = dbContext.Database.GetPendingMigrations();
 
 				if (!pendingMigration.Any())

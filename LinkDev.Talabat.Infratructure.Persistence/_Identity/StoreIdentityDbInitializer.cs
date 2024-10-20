@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace LinkDev.Talabat.Infratructure.Persistence._Identity
 {
-	class StoreIdentityDbInitializer(StoreIdentityDbContext dbContext, UserManager<ApplicationUser> userManager) : IStoreIdentityDbInitializer
+	public class StoreIdentityDbInitializer(StoreIdentityDbContext dbContext, UserManager<ApplicationUser> userManager) : IStoreIdentityDbInitializer
 	{
 		public async Task InitializeAsync()
 		{

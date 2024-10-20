@@ -1,5 +1,7 @@
 ﻿using LinkDev.Talabat.Core.Domain.Contracts.Persistence;
+using LinkDev.Talabat.Infratructure.Persistence._Identity;
 using LinkDev.Talabat.Infratructure.Persistence.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace LinkDev.Talabat.APIs.Extensions
 {
