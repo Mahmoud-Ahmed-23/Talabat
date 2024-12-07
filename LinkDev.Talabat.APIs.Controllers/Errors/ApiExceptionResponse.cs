@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace LinkDev.Talabat.APIs.Controllers.Controllers.Errors
+namespace LinkDev.Talabat.APIs.Controllers.Errors
 {
 	public class ApiExceptionResponse : ApiResponse
 	{

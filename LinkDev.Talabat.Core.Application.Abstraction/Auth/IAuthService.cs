@@ -10,6 +10,6 @@ namespace LinkDev.Talabat.Core.Application.Abstraction.Auth
     public interface IAuthService
     {
         Task<UserDto> LoginAsync(LoginDto model);
-        Task<UserDto> Register(RegisterDto model);
+        Task<UserDto> RegisterAsync(RegisterDto model);
     }
 }

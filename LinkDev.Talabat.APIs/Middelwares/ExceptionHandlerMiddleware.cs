@@ -1,4 +1,4 @@
-﻿using LinkDev.Talabat.APIs.Controllers.Controllers.Errors;
+﻿using LinkDev.Talabat.APIs.Controllers.Errors;
 using LinkDev.Talabat.Core.Application.Exceptions;
 using System.Net;
 using System.Text.Json;

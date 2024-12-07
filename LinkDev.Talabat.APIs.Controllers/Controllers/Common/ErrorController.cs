@@ -1,4 +1,4 @@
-﻿using LinkDev.Talabat.APIs.Controllers.Controllers.Errors;
+﻿using LinkDev.Talabat.APIs.Controllers.Errors;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;

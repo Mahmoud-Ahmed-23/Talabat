@@ -7,7 +7,6 @@ using LinkDev.Talabat.Infratructure.Persistence.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using LinkDev.Talabat.Core.Application;
-using LinkDev.Talabat.APIs.Controllers.Controllers.Errors;
 using Microsoft.AspNetCore.Mvc;
 using LinkDev.Talabat.APIs.Middelwares;
 using LinkDev.Talabat.Infratructure;
@@ -17,6 +16,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using LinkDev.Talabat.Infratructure.Persistence._Identity;
 using LinkDev.Talabat.APIs.Extensions;
 using LinkDev.Talabat.Core.Domain.Contracts.Persistence;
+using LinkDev.Talabat.APIs.Controllers.Errors;
 namespace LinkDev.Talabat.APIs
 {
 	public class Program
@@ -59,30 +59,9 @@ namespace LinkDev.Talabat.APIs
 			webApplicationBuilder.Services.AddApplicationServices();
 			webApplicationBuilder.Services.AddPersistenceServices(webApplicationBuilder.Configuration);
 			webApplicationBuilder.Services.AddInfrastructureServices(webApplicationBuilder.Configuration);
+			webApplicationBuilder.Services.AddIdentityServices();
 
 			//DependencyInjection.AddPersistenceServices(webApplicationBuilder.Services, webApplicationBuilder.Configuration);
-			webApplicationBuilder.Services.AddIdentity<ApplicationUser, IdentityRole>((identityOptions) =>
-			{
-				identityOptions.SignIn.RequireConfirmedAccount = true;
-				identityOptions.SignIn.RequireConfirmedEmail = true;
-				identityOptions.SignIn.RequireConfirmedPhoneNumber = true;
-
-				/// identityOptions.Password.RequireNonAlphanumeric = true;
-				/// identityOptions.Password.RequiredUniqueChars = 2;
-				/// identityOptions.Password.RequiredLength = 6;
-				/// identityOptions.Password.RequireDigit = true;
-				/// identityOptions.Password.RequireLowercase = true;
-				/// identityOptions.Password.RequireUppercase = true;
-
-				identityOptions.User.RequireUniqueEmail = true;
-
-				identityOptions.Lockout.AllowedForNewUsers = true;
-				identityOptions.Lockout.MaxFailedAccessAttempts = 5;
-				identityOptions.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromHours(5);
-
-
-			})
-				.AddEntityFrameworkStores<StoreIdentityDbContext>();
 
 
 			#endregion
