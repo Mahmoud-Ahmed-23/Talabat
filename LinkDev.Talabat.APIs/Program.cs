@@ -54,6 +54,7 @@ namespace LinkDev.Talabat.APIs
 			webApplicationBuilder.Services.AddEndpointsApiExplorer();
 			webApplicationBuilder.Services.AddSwaggerGen();
 
+			webApplicationBuilder.Services.AddHttpContextAccessor();
 			webApplicationBuilder.Services.AddScoped(typeof(ILoggedInUserService), typeof(LoggedInUserService));
 
 			webApplicationBuilder.Services.AddApplicationServices();
@@ -78,26 +79,12 @@ namespace LinkDev.Talabat.APIs
 
 			var LoggerFactory = Services.GetRequiredService<ILoggerFactory>();
 
-			try
-			{
-
-				var pendingMigration = dbContext.Database.GetPendingMigrations();
-
-				if (!pendingMigration.Any())
-					await dbContext.Database.MigrateAsync();
-
-				await StoreDbContextSeed.SeedAsync(dbContext);
-
-			}
-			catch (Exception ex)
-			{
-				var logger = LoggerFactory.CreateLogger<Program>();
-				logger.LogError(ex, "an Error in Migration");
-			}
 
 			#region Configure Kestrel Middlewares
 
 			app.UseMiddleware<ExceptionHandlerMiddleware>();
+
+			await app.InitializerStoreIdentityContextAsync();
 
 			// Configure the HTTP request pipeline.
 			if (app.Environment.IsDevelopment())

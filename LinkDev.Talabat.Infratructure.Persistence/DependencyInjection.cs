@@ -1,5 +1,6 @@
 ﻿using LinkDev.Talabat.Core.Domain.Contracts.Persistence;
 using LinkDev.Talabat.Core.Domain.Entities.Identity;
+using LinkDev.Talabat.Infrastruct.Persistence.Data;
 using LinkDev.Talabat.Infratructure.Persistence._Identity;
 using LinkDev.Talabat.Infratructure.Persistence.Data;
 using LinkDev.Talabat.Infratructure.Persistence.Data.Interceptors;
@@ -24,7 +25,9 @@ namespace LinkDev.Talabat.Infratructure.Persistence
 				});
 
 
-			services.AddScoped(typeof(ISaveChangesInterceptor), typeof(BaseAuditableEntityInterceptor));
+			services.AddScoped(typeof(IStoreDbInitializer), typeof(StoreDbInitializer));
+
+			services.AddScoped(typeof(ISaveChangesInterceptor), typeof(CustomSaveChangesInterceptor));
 
 			#endregion
 
@@ -38,6 +41,7 @@ namespace LinkDev.Talabat.Infratructure.Persistence
 
 
 			services.AddScoped(typeof(IStoreIdentityDbInitializer), typeof(StoreIdentityDbInitializer));
+
 
 			#endregion
 

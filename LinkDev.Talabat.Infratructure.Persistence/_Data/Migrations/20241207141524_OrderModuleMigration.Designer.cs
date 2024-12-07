@@ -4,16 +4,19 @@ using LinkDev.Talabat.Infratructure.Persistence.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace LinkDev.Talabat.Infratructure.Persistence.Data.Migrations
+namespace LinkDev.Talabat.Infratructure.Persistence._Data.Migrations
 {
     [DbContext(typeof(StoreDbContext))]
-    partial class StoreContextModelSnapshot : ModelSnapshot
+    [Migration("20241207141524_OrderModuleMigration")]
+    partial class OrderModuleMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
