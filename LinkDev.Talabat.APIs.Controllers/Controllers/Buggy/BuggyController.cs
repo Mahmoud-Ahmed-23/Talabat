@@ -43,10 +43,10 @@ namespace LinkDev.Talabat.APIs.Controllers.Controllers.Buggy
 				var errors = ModelState.Where(p => p.Value.Errors.Count > 0)
 									   .SelectMany(p => p.Value.Errors)
 									   .Select(E => E.ErrorMessage);
-				return BadRequest(new ApiValidationErrorResponse()
-				{
-					Errors = errors
-				});
+				//return BadRequest(new ApiValidationErrorResponse()
+				//{
+				//	Errors = errors
+				//});
 			}
 			return Ok();
 		}

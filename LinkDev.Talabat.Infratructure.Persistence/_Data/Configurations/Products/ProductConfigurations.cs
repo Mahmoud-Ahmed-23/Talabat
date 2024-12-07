@@ -10,33 +10,31 @@ using System.Threading.Tasks;
 
 namespace LinkDev.Talabat.Infratructure.Persistence.Data.Configurations.Products
 {
-	internal class ProductConfigurations : BaseEntityConfigurations<Product, int>
-	{
-		public override void Configure(EntityTypeBuilder<Product> builder)
-		{
-			base.Configure(builder);
+    internal class ProductConfigurations : BaseEntityConfigurations<Product, int>
+    {
+        public override void Configure(EntityTypeBuilder<Product> builder)
+        {
+            base.Configure(builder);
 
-			builder.Property(p => p.Name)
-				.IsRequired()
-				.HasMaxLength(100);
+            builder.Property(p => p.Name)
+                .IsRequired()
+                .HasMaxLength(100);
 
-			builder.Property(p => p.Description)
-				.IsRequired();
+            builder.Property(p => p.Description)
+                .IsRequired();
 
-			builder.Property(p => p.Price)
-				.HasColumnType("decimal(9,2)");
+            builder.Property(p => p.Price)
+                .HasColumnType("decimal(9,2)");
 
-			builder.HasOne(p => p.Brand)
-				.WithMany()
-				.HasForeignKey(p => p.BrandId)
-				.OnDelete(DeleteBehavior.SetNull);
+            builder.HasOne(p => p.Brand)
+                .WithMany()
+                .HasForeignKey(p => p.BrandId)
+                .OnDelete(DeleteBehavior.SetNull);
 
-			builder.HasOne(p => p.Category)
-				.WithMany()
-				.HasForeignKey(p => p.CategoryId)
-				.OnDelete(DeleteBehavior.SetNull);
-
-
-		}
-	}
+            builder.HasOne(p => p.Category)
+                .WithMany()
+                .HasForeignKey(p => p.CategoryId)
+                .OnDelete(DeleteBehavior.SetNull);
+        }
+    }
 }
