@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace LinkDev.Talabat.Infratructure.Persistence.Data.Configurations.Base
 {
-	internal class BaseEntityConfigurations<TEntity, TKey> : IEntityTypeConfiguration<TEntity>
+	internal class BaseAuditableEntityConfigurations<TEntity, TKey> : IEntityTypeConfiguration<TEntity>
 		where TEntity : BaseAuditableEntity<TKey> where TKey : IEquatable<TKey>
 	{
 		public virtual void Configure(EntityTypeBuilder<TEntity> builder)
