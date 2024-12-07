@@ -8,15 +8,15 @@ using System.Threading.Tasks;
 
 namespace LinkDev.Talabat.Infratructure.Persistence.Data
 {
-	public class StoreContext : DbContext
+	public class StoreDbContext : DbContext
 	{
-		public StoreContext(DbContextOptions<StoreContext> options) : base(options)
+		public StoreDbContext(DbContextOptions<StoreDbContext> options) : base(options)
 		{
 
 		}
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-			modelBuilder.ApplyConfigurationsFromAssembly(typeof(StoreContext).Assembly);
+			modelBuilder.ApplyConfigurationsFromAssembly(typeof(StoreDbContext).Assembly);
 		}
 		public DbSet<Product> Products { get; set; }
 		public DbSet<ProductBrand> Brands { get; set; }

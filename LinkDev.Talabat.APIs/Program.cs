@@ -7,10 +7,16 @@ using LinkDev.Talabat.Infratructure.Persistence.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using LinkDev.Talabat.Core.Application;
-using LinkDev.Talabat.APIs.Controllers.Controllers.Errors;
 using Microsoft.AspNetCore.Mvc;
 using LinkDev.Talabat.APIs.Middelwares;
 using LinkDev.Talabat.Infratructure;
+using Microsoft.AspNetCore.Identity;
+using LinkDev.Talabat.Core.Domain.Entities.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using LinkDev.Talabat.Infratructure.Persistence._Identity;
+using LinkDev.Talabat.APIs.Extensions;
+using LinkDev.Talabat.Core.Domain.Contracts.Persistence;
+using LinkDev.Talabat.APIs.Controllers.Errors;
 namespace LinkDev.Talabat.APIs
 {
 	public class Program
@@ -31,8 +37,11 @@ namespace LinkDev.Talabat.APIs
 					options.InvalidModelStateResponseFactory = (actionContext) =>
 					{
 						var errors = actionContext.ModelState.Where(p => p.Value!.Errors.Count > 0)
-									   .SelectMany(p => p.Value!.Errors)
-									   .Select(E => E.ErrorMessage);
+									   .Select(P => new ApiValidationErrorResponse.ValidationError()
+									   {
+										   Field = P.Key,
+										   Errors = P.Value!.Errors.Select(e => e.ErrorMessage)
+									   });
 						return new BadRequestObjectResult(new ApiValidationErrorResponse()
 						{
 							Errors = errors
@@ -50,30 +59,35 @@ namespace LinkDev.Talabat.APIs
 			webApplicationBuilder.Services.AddApplicationServices();
 			webApplicationBuilder.Services.AddPersistenceServices(webApplicationBuilder.Configuration);
 			webApplicationBuilder.Services.AddInfrastructureServices(webApplicationBuilder.Configuration);
-			//DependencyInjection.AddPersistenceServices(webApplicationBuilder.Services, webApplicationBuilder.Configuration);
+			webApplicationBuilder.Services.AddIdentityServices();
 
+			//DependencyInjection.AddPersistenceServices(webApplicationBuilder.Services, webApplicationBuilder.Configuration);
 
 
 			#endregion
 
 			var app = webApplicationBuilder.Build();
 
+			await app.InitializerStoreIdentityContextAsync();
+
 			using var Scope = app.Services.CreateAsyncScope();
 
 			var Services = Scope.ServiceProvider;
 
-			var dbContext = Services.GetRequiredService<StoreContext>();
+			var dbContext = Services.GetRequiredService<StoreDbContext>();
 
 			var LoggerFactory = Services.GetRequiredService<ILoggerFactory>();
 
 			try
 			{
+
 				var pendingMigration = dbContext.Database.GetPendingMigrations();
 
 				if (!pendingMigration.Any())
 					await dbContext.Database.MigrateAsync();
 
-				await StoreContextSeed.SeedAsync(dbContext);
+				await StoreDbContextSeed.SeedAsync(dbContext);
+
 			}
 			catch (Exception ex)
 			{
@@ -83,7 +97,7 @@ namespace LinkDev.Talabat.APIs
 
 			#region Configure Kestrel Middlewares
 
-			app.UseMiddleware<CustomExceptionHandlerMiddleware>();
+			app.UseMiddleware<ExceptionHandlerMiddleware>();
 
 			// Configure the HTTP request pipeline.
 			if (app.Environment.IsDevelopment())

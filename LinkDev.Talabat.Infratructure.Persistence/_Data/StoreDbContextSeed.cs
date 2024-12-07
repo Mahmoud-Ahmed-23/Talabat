@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace LinkDev.Talabat.Infratructure.Persistence.Data
 {
-    public static class StoreContextSeed
+    public static class StoreDbContextSeed
     {
-        public static async Task SeedAsync(StoreContext dbContext)
+        public static async Task SeedAsync(StoreDbContext dbContext)
         {
             if (!dbContext.Brands.Any())
             {

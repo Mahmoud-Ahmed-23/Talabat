@@ -1,6 +1,5 @@
 ﻿using LinkDev.Talabat.APIs.Controllers.Controllers.Base;
-using LinkDev.Talabat.APIs.Controllers.Controllers.Errors;
-using LinkDev.Talabat.APIs.Controllers.Controllers.Exceptions;
+using LinkDev.Talabat.APIs.Controllers.Errors;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -15,9 +14,10 @@ namespace LinkDev.Talabat.APIs.Controllers.Controllers.Buggy
 	{
 
 		[HttpGet("notfound")]
-		public IActionResult GetNotFoundRequest()
+		public IActionResult GetNotFoundError()
 		{
-			throw new NotFoundException();
+			//throw new NotFoundException();
+			return NotFound(new ApiResponse(404));
 		}
 
 
@@ -43,10 +43,10 @@ namespace LinkDev.Talabat.APIs.Controllers.Controllers.Buggy
 				var errors = ModelState.Where(p => p.Value.Errors.Count > 0)
 									   .SelectMany(p => p.Value.Errors)
 									   .Select(E => E.ErrorMessage);
-				return BadRequest(new ApiValidationErrorResponse()
-				{
-					Errors = errors
-				});
+				//return BadRequest(new ApiValidationErrorResponse()
+				//{
+				//	Errors = errors
+				//});
 			}
 			return Ok();
 		}

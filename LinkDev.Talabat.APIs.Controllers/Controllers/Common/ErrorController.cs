@@ -1,4 +1,4 @@
-﻿using LinkDev.Talabat.APIs.Controllers.Controllers.Errors;
+﻿using LinkDev.Talabat.APIs.Controllers.Errors;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -22,7 +22,7 @@ namespace LinkDev.Talabat.APIs.Controllers.Controllers.Common
 				var response = new ApiResponse((int)HttpStatusCode.NotFound, $"The requested endpoint: {Request.Path} is not found.");
 				return NotFound(response);
 			}
-			return StatusCode(code);
+			return StatusCode(code, new ApiResponse(code));
 		}
 	}
 }

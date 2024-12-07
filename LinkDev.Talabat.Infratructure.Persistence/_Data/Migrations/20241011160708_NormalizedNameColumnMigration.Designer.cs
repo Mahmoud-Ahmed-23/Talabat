@@ -11,9 +11,9 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LinkDev.Talabat.Infratructure.Persistence.Data.Migrations
 {
-    [DbContext(typeof(StoreContext))]
-    [Migration("20241006191328_ProductModuleMigration")]
-    partial class ProductModuleMigration
+    [DbContext(typeof(StoreDbContext))]
+    [Migration("20241011160708_NormalizedNameColumnMigration")]
+    partial class NormalizedNameColumnMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -61,6 +61,10 @@ namespace LinkDev.Talabat.Infratructure.Persistence.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("NormlizedName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PictureUrl")
                         .HasColumnType("nvarchar(max)");

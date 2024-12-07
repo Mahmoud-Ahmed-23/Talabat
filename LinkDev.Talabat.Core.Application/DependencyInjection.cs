@@ -27,16 +27,17 @@ namespace LinkDev.Talabat.Core.Application
 			services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
 
 
-			//services.AddScoped(typeof(IBasketService), typeof(BasketService));
+			services.AddScoped(typeof(IBasketService), typeof(BasketService));
 			//services.AddScoped(typeof(Func<IBasketService>), typeof(Func<BasketService>));
 
 			services.AddScoped(typeof(Func<IBasketService>), (serviceProvider) =>
 			{
-				var mapper = serviceProvider.GetRequiredService<IMapper>();
-				var configuration = serviceProvider.GetRequiredService<IConfiguration>();
-				var repository = serviceProvider.GetRequiredService<IBasketRepository>();
+				//var mapper = serviceProvider.GetRequiredService<IMapper>();
+				//var configuration = serviceProvider.GetRequiredService<IConfiguration>();
+				//var repository = serviceProvider.GetRequiredService<IBasketRepository>();
 
-				return () => new BasketService(repository, mapper, configuration);
+				//return () => new BasketService(repository, mapper, configuration);
+				return () => serviceProvider.GetServices<IBasketService>();
 			});
 
 			return services;

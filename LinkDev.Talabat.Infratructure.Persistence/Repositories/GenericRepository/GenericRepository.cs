@@ -18,9 +18,9 @@ namespace LinkDev.Talabat.Infratructure.Persistence.Repositories.GenericReposito
 		BaseAuditableEntity<TKey> where TKey : IEquatable<TKey>
 	{
 
-		private readonly StoreContext _dbContext;
+		private readonly StoreDbContext _dbContext;
 
-		public GenericRepository(StoreContext dbContext)
+		public GenericRepository(StoreDbContext dbContext)
 		{
 			_dbContext = dbContext;
 		}

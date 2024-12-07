@@ -17,6 +17,7 @@ namespace LinkDev.Talabat.Infratructure.Persistence.Data.Configurations.Products
 
 			builder.Property(b=>b.Name)
 				.IsRequired();
+			
 		}
 	}
 }
