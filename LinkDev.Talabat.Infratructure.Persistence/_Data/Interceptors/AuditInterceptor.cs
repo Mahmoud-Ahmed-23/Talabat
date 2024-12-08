@@ -10,19 +10,19 @@ using System.Threading.Tasks;
 
 namespace LinkDev.Talabat.Infratructure.Persistence.Data.Interceptors
 {
-	public class CustomSaveChangesInterceptor : SaveChangesInterceptor
+	public class AuditInterceptor : SaveChangesInterceptor
 	{
 		private readonly ILoggedInUserService _loggedInUserService;
 
-		public CustomSaveChangesInterceptor(ILoggedInUserService loggedInUserService)
+		public AuditInterceptor(ILoggedInUserService loggedInUserService)
 		{
 			_loggedInUserService = loggedInUserService;
 		}
 
-		public override int SavedChanges(SaveChangesCompletedEventData eventData, int result)
+		public override ValueTask<InterceptionResult<int>> SavingChangesAsync(DbContextEventData eventData, InterceptionResult<int> result, CancellationToken cancellationToken = default)
 		{
 			UpdateData(eventData.Context);
-			return base.SavedChanges(eventData, result);
+			return base.SavingChangesAsync(eventData, result, cancellationToken);
 		}
 
 		public override InterceptionResult<int> SavingChanges(DbContextEventData eventData, InterceptionResult<int> result)
