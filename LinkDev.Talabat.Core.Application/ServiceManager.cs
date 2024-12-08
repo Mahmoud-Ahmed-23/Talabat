@@ -46,5 +46,7 @@ namespace LinkDev.Talabat.Core.Application
 		public IBasketService BasketService => _basketService.Value;
 
 		public IAuthService AuthService => _authService.Value;
+
+		public IOrderService OrderService => _orderService.Value;
 	}
 }
