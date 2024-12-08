@@ -27,7 +27,7 @@ namespace LinkDev.Talabat.Infratructure.Persistence._Data.Configurations.Orders
 				.HasColumnType("decimal(8,2)");
 			builder.HasOne(order => order.DeliveryMethod)
 				.WithMany()
-				.HasForeignKey(order => order.DeliveryhMethodId)
+				.HasForeignKey(order => order.DeliveryMethodId)
 				.OnDelete(DeleteBehavior.SetNull);
 			builder.HasMany(order => order.Items)
 				.WithOne()

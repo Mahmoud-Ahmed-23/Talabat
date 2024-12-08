@@ -13,6 +13,7 @@ using LinkDev.Talabat.Core.Application.Services.Basket;
 using AutoMapper;
 using Microsoft.Extensions.Configuration;
 using LinkDev.Talabat.Core.Domain.Contracts.Infrastructure;
+using LinkDev.Talabat.Core.Application.Abstraction.Order;
 namespace LinkDev.Talabat.Core.Application
 {
 	public static class DependencyInjection
@@ -26,6 +27,16 @@ namespace LinkDev.Talabat.Core.Application
 
 			services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
 
+
+			services.AddScoped(typeof(Func<IOrderService>), (serviceProvider) =>
+			{
+				//var mapper = serviceProvider.GetRequiredService<IMapper>();
+				//var configuration = serviceProvider.GetRequiredService<IConfiguration>();
+				//var repository = serviceProvider.GetRequiredService<IBasketRepository>();
+
+				//return () => new BasketService(repository, mapper, configuration);
+				return () => serviceProvider.GetServices<IOrderService>();
+			});
 
 			services.AddScoped(typeof(IBasketService), typeof(BasketService));
 			//services.AddScoped(typeof(Func<IBasketService>), typeof(Func<BasketService>));

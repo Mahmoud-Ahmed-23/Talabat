@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LinkDev.Talabat.Core.Application.Abstraction.Order.Models
 {
-	public class OrderToRetunDto
+	public class OrderToReturnDto
 	{
 		public required int Id { get; set; }
 		public required string BuyerEmail { get; set; }

@@ -40,13 +40,13 @@ namespace LinkDev.Talabat.Core.Application.Mapping
 
 			#region Order Mapping
 
-			CreateMap<Order, OrderToRetunDto>()
+			CreateMap<Order, OrderToReturnDto>()
 				.ForMember(dest => dest.DeliveryMethod, options => options.MapFrom(src => src.DeliveryMethod!.ShortName));
 			CreateMap<OrderItem, OrderItemDto>()
 				.ForMember(dest => dest.ProductId, options => options.MapFrom(src => src.Product.ProductId))
 				.ForMember(dest => dest.ProductName, options => options.MapFrom(src => src.Product.ProductName))
 				.ForMember(dest => dest.PictureUrl, options => options.MapFrom<OrderItemPictureURLResolver>());
-			CreateMap<Address, AddressDto>();
+			CreateMap<Address, AddressDto>().ReverseMap();
 			CreateMap<DeliveryMethod, DeliveryMethodDto>();
 
 			#endregion
