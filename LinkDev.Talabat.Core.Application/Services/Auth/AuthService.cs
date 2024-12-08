@@ -144,5 +144,11 @@ namespace LinkDev.Talabat.Core.Application.Services.Auth
 			return addressDto;
 
 		}
+
+		public async Task<bool> EmailExists(string email)
+		{
+			return await userManager.FindByEmailAsync(email) is not null;
+		}
+
 	}
 }
