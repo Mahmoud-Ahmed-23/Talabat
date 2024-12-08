@@ -125,5 +125,24 @@ namespace LinkDev.Talabat.Core.Application.Services.Auth
 			return address;
 		}
 
+		public async Task<AddressDto> UpdateUserAddress(ClaimsPrincipal claimsPrincipal, AddressDto addressDto)
+		{
+			var updatedAddress = mapper.Map<Address>(addressDto);
+
+			var user = await userManager.FindUserWithAddress(claimsPrincipal!);
+
+			if (user?.Address != null)
+				updatedAddress.Id = user.Address.Id;
+
+			user!.Address = updatedAddress;
+
+			var result = await userManager.UpdateAsync(user);
+
+			if (!result.Succeeded) throw new BadRequestException(result.Errors.Select(error => error.Description)
+				.Aggregate((X, Y) => $"{X}, {Y}"));
+
+			return addressDto;
+
+		}
 	}
 }
