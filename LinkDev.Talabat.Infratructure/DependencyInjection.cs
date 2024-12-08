@@ -1,4 +1,5 @@
 ﻿using LinkDev.Talabat.Core.Domain.Contracts.Infrastructure;
+using LinkDev.Talabat.Core.Domain.Contracts.Persistence;
 using LinkDev.Talabat.Infratructure.Basket_Repository;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,6 +16,7 @@ namespace LinkDev.Talabat.Infratructure
 	{
 		public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
 		{
+			
 			services.AddSingleton(typeof(IConnectionMultiplexer), (serviceProvider) =>
 			{
 				var connectionstring = configuration.GetConnectionString("Redis");

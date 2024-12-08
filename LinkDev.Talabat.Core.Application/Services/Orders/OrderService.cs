@@ -3,10 +3,11 @@ using LinkDev.Talabat.Core.Application.Abstraction.Basket;
 using LinkDev.Talabat.Core.Application.Abstraction.Order;
 using LinkDev.Talabat.Core.Application.Abstraction.Order.Models;
 using LinkDev.Talabat.Core.Application.Exceptions;
+using LinkDev.Talabat.Core.Domain.Contracts.Persistence;
 using LinkDev.Talabat.Core.Domain.Entities.Orders;
 using LinkDev.Talabat.Core.Domain.Entities.Products;
 using LinkDev.Talabat.Core.Domain.Specifications.OrderSpecs;
-using LinkDev.Talabat.Infratructure.Persistence.UnitOfWork;
+using LinkDev.Talabat.Infratructure.Persistence.UnitOfWorks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace LinkDev.Talabat.Core.Application.Services.Orders
 {
-	public class OrderService(UnitOfWork unitOfWork, IMapper mapper, IBasketService basketService) : IOrderService
+	public class OrderService(IUnitOfWork unitOfWork, IMapper mapper, IBasketService basketService) : IOrderService
 	{
 		public async Task<OrderToReturnDto> CreateOrderAsync(string buyerEmail, OrderToCreateDto order)
 		{

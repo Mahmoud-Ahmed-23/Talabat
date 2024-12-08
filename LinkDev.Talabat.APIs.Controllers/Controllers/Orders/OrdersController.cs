@@ -45,13 +45,6 @@ namespace LinkDev.Talabat.APIs.Controllers.Controllers.Orders
 			return Ok(result);
 		}
 
-		[Authorize]
-		[HttpGet]
-		public async Task<ActionResult<UserDto>> GetCurrentUser()
-		{
-			var result = await serviceManager.AuthService.GetCurrentUser(User);
-			return Ok(result);
-
-		}
+		
 	}
 }

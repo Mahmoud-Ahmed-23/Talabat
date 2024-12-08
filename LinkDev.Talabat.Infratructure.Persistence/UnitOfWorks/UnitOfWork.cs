@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LinkDev.Talabat.Infratructure.Persistence.UnitOfWork
+namespace LinkDev.Talabat.Infratructure.Persistence.UnitOfWorks
 {
     public class UnitOfWork : IUnitOfWork
 	{

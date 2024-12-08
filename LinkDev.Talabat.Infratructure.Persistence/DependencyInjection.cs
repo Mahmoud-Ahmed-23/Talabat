@@ -4,6 +4,7 @@ using LinkDev.Talabat.Infrastruct.Persistence.Data;
 using LinkDev.Talabat.Infratructure.Persistence._Identity;
 using LinkDev.Talabat.Infratructure.Persistence.Data;
 using LinkDev.Talabat.Infratructure.Persistence.Data.Interceptors;
+using LinkDev.Talabat.Infratructure.Persistence.UnitOfWorks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
@@ -19,16 +20,10 @@ namespace LinkDev.Talabat.Infratructure.Persistence
 		{
 			#region Store DbContext
 
-			services.AddDbContext<StoreDbContext>((options) =>
-				{
-					//options.UseSqlServer(configuration.GetConnectionString("StoreContext"));
-					services.AddDbContext<StoreDbContext>((serviceProvider, options) =>
-					{
-						options
-							.UseSqlServer(configuration.GetConnectionString("StoreContext"))
-							.AddInterceptors(serviceProvider.GetRequiredService<AuditInterceptor>());
-					});
-				});
+			services.AddDbContext<StoreDbContext>(optionsBuilder =>
+			{
+				optionsBuilder.UseSqlServer(configuration.GetConnectionString("StoreContext"));
+			});
 
 
 			services.AddScoped(typeof(IStoreDbInitializer), typeof(StoreDbInitializer));
@@ -52,7 +47,7 @@ namespace LinkDev.Talabat.Infratructure.Persistence
 			#endregion
 
 
-			services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork.UnitOfWork));
+			services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
 
 			return services;
 		}

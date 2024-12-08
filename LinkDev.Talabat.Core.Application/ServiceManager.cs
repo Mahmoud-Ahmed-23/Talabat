@@ -33,11 +33,17 @@ namespace LinkDev.Talabat.Core.Application
 		public ServiceManager(IUnitOfWork unitOfWork, IMapper mapper, IConfiguration configuration, Func<IBasketService> basketServiceFactory, Func<IAuthService> authServiceFactory, Func<IOrderService> orderServiceFactory)
 		{
 			_unitOfWork = unitOfWork;
+
 			_mapper = mapper;
+
 			_configuration = configuration;
+
 			_productService = new Lazy<IProductService>(() => new ProductService(_unitOfWork, _mapper));
+
 			_basketService = new Lazy<IBasketService>(basketServiceFactory, LazyThreadSafetyMode.ExecutionAndPublication);
+
 			_authService = new Lazy<IAuthService>(authServiceFactory, LazyThreadSafetyMode.ExecutionAndPublication);
+
 			_orderService = new Lazy<IOrderService>(orderServiceFactory, LazyThreadSafetyMode.ExecutionAndPublication);
 		}
 

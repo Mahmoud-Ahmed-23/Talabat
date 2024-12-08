@@ -1,6 +1,9 @@
-﻿using LinkDev.Talabat.Core.Application.Abstraction.Auth;
+﻿using AutoMapper;
+using LinkDev.Talabat.Core.Application.Abstraction.Auth;
 using LinkDev.Talabat.Core.Application.Abstraction.Auth.Models;
+using LinkDev.Talabat.Core.Application.Abstraction.Common;
 using LinkDev.Talabat.Core.Application.Exceptions;
+using LinkDev.Talabat.Core.Application.Extensions;
 using LinkDev.Talabat.Core.Domain.Entities.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
@@ -14,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace LinkDev.Talabat.Core.Application.Services.Auth
 {
-	public class AuthService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager) : IAuthService
+	public class AuthService(IMapper mapper, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager) : IAuthService
 	{
 		public async Task<UserDto> LoginAsync(LoginDto model)
 		{
@@ -112,6 +115,14 @@ namespace LinkDev.Talabat.Core.Application.Services.Auth
 				DisplayName = user.DisplayName,
 				Token = await GenerateTokenAsync(user),
 			};
+		}
+
+		public async Task<AddressDto> GetUserAddress(ClaimsPrincipal claimsPrincipal)
+		{
+
+			var user = await userManager.FindUserWithAddress(claimsPrincipal!);
+			var address = mapper.Map<AddressDto>(user!.Address);
+			return address;
 		}
 
 	}
