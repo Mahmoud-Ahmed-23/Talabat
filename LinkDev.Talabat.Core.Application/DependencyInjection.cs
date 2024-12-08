@@ -14,6 +14,7 @@ using AutoMapper;
 using Microsoft.Extensions.Configuration;
 using LinkDev.Talabat.Core.Domain.Contracts.Infrastructure;
 using LinkDev.Talabat.Core.Application.Abstraction.Order;
+using LinkDev.Talabat.Core.Application.Services.Orders;
 namespace LinkDev.Talabat.Core.Application
 {
 	public static class DependencyInjection
@@ -37,6 +38,8 @@ namespace LinkDev.Talabat.Core.Application
 				//return () => new BasketService(repository, mapper, configuration);
 				return () => serviceProvider.GetServices<IOrderService>();
 			});
+
+			services.AddScoped(typeof(IOrderService), typeof(OrderService));
 
 			services.AddScoped(typeof(IBasketService), typeof(BasketService));
 			//services.AddScoped(typeof(Func<IBasketService>), typeof(Func<BasketService>));

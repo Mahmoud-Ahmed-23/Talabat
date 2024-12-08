@@ -30,7 +30,7 @@ namespace LinkDev.Talabat.Infratructure.Persistence.UnitOfWork
 		public ValueTask DisposeAsync()
 		=> _dbContext.DisposeAsync();
 
-		public IGenericRepsitory<TEntity, TKey> GetRepsitory<TEntity, TKey>()
+		public IGenericRepsitory<TEntity, TKey> GetRepository<TEntity, TKey>()
 			where TEntity : BaseAuditableEntity<TKey>
 			where TKey : IEquatable<TKey>
 		{

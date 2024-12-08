@@ -17,17 +17,13 @@ namespace LinkDev.Talabat.Infratructure.Persistence.Data.Configurations.Base
 			builder.Property(p => p.Id)
 				.ValueGeneratedOnAdd();
 
-			builder.Property(p => p.CreatedBy)
-				.IsRequired();
+			builder.Property(p => p.CreatedBy);
 
-			builder.Property(p => p.CreatedOn)
-				.IsRequired();
+			builder.Property(p => p.CreatedOn);
 
-			builder.Property(p => p.LastModifiedBy)
-				.IsRequired();
+			builder.Property(p => p.LastModifiedBy);
 
-			builder.Property(p => p.LastModifiedOn)
-				.IsRequired();
+			builder.Property(p => p.LastModifiedOn);
 
 		}
 	}
