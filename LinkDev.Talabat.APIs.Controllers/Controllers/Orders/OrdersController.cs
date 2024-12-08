@@ -1,5 +1,6 @@
 ﻿using LinkDev.Talabat.APIs.Controllers.Controllers.Base;
 using LinkDev.Talabat.Core.Application.Abstraction;
+using LinkDev.Talabat.Core.Application.Abstraction.Auth.Models;
 using LinkDev.Talabat.Core.Application.Abstraction.Order.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -42,6 +43,15 @@ namespace LinkDev.Talabat.APIs.Controllers.Controllers.Orders
 		{
 			var result = await serviceManager.OrderService.GetDeliveryMethodAsync();
 			return Ok(result);
+		}
+
+		[Authorize]
+		[HttpGet]
+		public async Task<ActionResult<UserDto>> GetCurrentUser()
+		{
+			var result = await serviceManager.AuthService.GetCurrentUser(User);
+			return Ok(result);
+
 		}
 	}
 }

@@ -65,7 +65,6 @@ namespace LinkDev.Talabat.Core.Application.Services.Auth
 
 		}
 
-
 		private async Task<string> GenerateTokenAsync(ApplicationUser user)
 		{
 			var userClaims = await userManager.GetClaimsAsync(user);
@@ -101,5 +100,19 @@ namespace LinkDev.Talabat.Core.Application.Services.Auth
 
 			return new JwtSecurityTokenHandler().WriteToken(tokenObj);
 		}
+
+		public async Task<UserDto> GetCurrentUser(ClaimsPrincipal claimsPrincipal)
+		{
+			var email = claimsPrincipal.FindFirstValue(ClaimTypes.Email);
+			var user = await userManager.FindByEmailAsync(email!);
+			return new UserDto()
+			{
+				Id = user!.Id,
+				Email = user!.Email!,
+				DisplayName = user.DisplayName,
+				Token = await GenerateTokenAsync(user),
+			};
+		}
+
 	}
 }
