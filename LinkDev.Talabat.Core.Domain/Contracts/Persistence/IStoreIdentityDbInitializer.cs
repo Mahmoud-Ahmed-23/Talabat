@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace LinkDev.Talabat.Core.Domain.Contracts.Persistence
 {
-	public interface IStoreIdentityDbInitializer
+	public interface IStoreIdentityDbInitializer : IDbInitializer
 	{
-		Task InitializeAsync();
 
-		Task SeedAsync();
 
 	}
 }

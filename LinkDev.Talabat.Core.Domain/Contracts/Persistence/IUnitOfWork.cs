@@ -11,7 +11,7 @@ namespace LinkDev.Talabat.Core.Domain.Contracts.Persistence
     public interface IUnitOfWork : IAsyncDisposable
     {
 
-        IGenericRepsitory<TEntity, TKey> GetRepsitory<TEntity, TKey>()
+        IGenericRepsitory<TEntity, TKey> GetRepository<TEntity, TKey>()
         where TEntity : BaseAuditableEntity<TKey> where TKey : IEquatable<TKey>;
 
         Task<int> CompleteAsync();

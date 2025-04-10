@@ -1,6 +1,9 @@
-﻿using LinkDev.Talabat.Core.Application.Abstraction.Auth;
+﻿using AutoMapper;
+using LinkDev.Talabat.Core.Application.Abstraction.Auth;
 using LinkDev.Talabat.Core.Application.Abstraction.Auth.Models;
+using LinkDev.Talabat.Core.Application.Abstraction.Common;
 using LinkDev.Talabat.Core.Application.Exceptions;
+using LinkDev.Talabat.Core.Application.Extensions;
 using LinkDev.Talabat.Core.Domain.Entities.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
@@ -14,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace LinkDev.Talabat.Core.Application.Services.Auth
 {
-	public class AuthService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager) : IAuthService
+	public class AuthService(IMapper mapper, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager) : IAuthService
 	{
 		public async Task<UserDto> LoginAsync(LoginDto model)
 		{
@@ -65,7 +68,6 @@ namespace LinkDev.Talabat.Core.Application.Services.Auth
 
 		}
 
-
 		private async Task<string> GenerateTokenAsync(ApplicationUser user)
 		{
 			var userClaims = await userManager.GetClaimsAsync(user);
@@ -101,5 +103,52 @@ namespace LinkDev.Talabat.Core.Application.Services.Auth
 
 			return new JwtSecurityTokenHandler().WriteToken(tokenObj);
 		}
+
+		public async Task<UserDto> GetCurrentUser(ClaimsPrincipal claimsPrincipal)
+		{
+			var email = claimsPrincipal.FindFirstValue(ClaimTypes.Email);
+			var user = await userManager.FindByEmailAsync(email!);
+			return new UserDto()
+			{
+				Id = user!.Id,
+				Email = user!.Email!,
+				DisplayName = user.DisplayName,
+				Token = await GenerateTokenAsync(user),
+			};
+		}
+
+		public async Task<AddressDto> GetUserAddress(ClaimsPrincipal claimsPrincipal)
+		{
+
+			var user = await userManager.FindUserWithAddress(claimsPrincipal!);
+			var address = mapper.Map<AddressDto>(user!.Address);
+			return address;
+		}
+
+		public async Task<AddressDto> UpdateUserAddress(ClaimsPrincipal claimsPrincipal, AddressDto addressDto)
+		{
+			var updatedAddress = mapper.Map<Address>(addressDto);
+
+			var user = await userManager.FindUserWithAddress(claimsPrincipal!);
+
+			if (user?.Address != null)
+				updatedAddress.Id = user.Address.Id;
+
+			user!.Address = updatedAddress;
+
+			var result = await userManager.UpdateAsync(user);
+
+			if (!result.Succeeded) throw new BadRequestException(result.Errors.Select(error => error.Description)
+				.Aggregate((X, Y) => $"{X}, {Y}"));
+
+			return addressDto;
+
+		}
+
+		public async Task<bool> EmailExists(string email)
+		{
+			return await userManager.FindByEmailAsync(email) is not null;
+		}
+
 	}
 }

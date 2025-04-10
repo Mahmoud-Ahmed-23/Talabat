@@ -1,6 +1,7 @@
 ﻿using LinkDev.Talabat.Core.Domain.Contracts.Persistence;
 using LinkDev.Talabat.Core.Domain.Entities.Identity;
 using LinkDev.Talabat.Core.Domain.Entities.Products;
+using LinkDev.Talabat.Infratructure.Persistence._Common;
 using LinkDev.Talabat.Infratructure.Persistence.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -13,17 +14,10 @@ using System.Threading.Tasks;
 
 namespace LinkDev.Talabat.Infratructure.Persistence._Identity
 {
-	public class StoreIdentityDbInitializer(StoreIdentityDbContext dbContext, UserManager<ApplicationUser> userManager) : IStoreIdentityDbInitializer
+	public class StoreIdentityDbInitializer(StoreIdentityDbContext dbContext, UserManager<ApplicationUser> userManager) : DbInitializer(dbContext), IStoreIdentityDbInitializer
 	{
-		public async Task InitializeAsync()
-		{
-			var PendingMigrations = await dbContext.Database.GetPendingMigrationsAsync();
 
-			if (PendingMigrations.Any())
-				await dbContext.Database.MigrateAsync();
-		}
-
-		public async Task SeedAsync()
+		public override async Task SeedAsync()
 		{
 			var user = new ApplicationUser
 			{

@@ -9,23 +9,26 @@ namespace LinkDev.Talabat.APIs.Extensions
 	{
 		public static async Task<WebApplication> InitializerStoreIdentityContextAsync(this WebApplication app)
 		{
-			using var Scope = app.Services.CreateAsyncScope();
+			using var scope = app.Services.CreateAsyncScope();
+			var services = scope.ServiceProvider;
 
-			var Services = Scope.ServiceProvider;
+			var storeContextIntializer = services.GetRequiredService<IStoreDbInitializer>();
+			var storeIdentityContextIntializer = services.GetRequiredService<IStoreIdentityDbInitializer>();
 
-			var dbContext = Services.GetRequiredService<IStoreIdentityDbInitializer>();
-
-			var LoggerFactory = Services.GetRequiredService<ILoggerFactory>();
-
+			var LoggerFactory = services.GetRequiredService<ILoggerFactory>();
 			try
 			{
-				await dbContext.InitializeAsync();
-				await dbContext.SeedAsync();
+				await storeContextIntializer.InitializeAsync();
+				await storeContextIntializer.SeedAsync();
+
+				await storeIdentityContextIntializer.InitializeAsync();
+				await storeIdentityContextIntializer.SeedAsync();
+
 			}
 			catch (Exception ex)
 			{
-				var logger = LoggerFactory.CreateLogger<Program>();
-				logger.LogError(ex, "an Error in Migration");
+				var Logger = LoggerFactory.CreateLogger<Program>();
+				Logger.LogError(ex, "an error has been occured during applaying migrations");
 			}
 
 			return app;

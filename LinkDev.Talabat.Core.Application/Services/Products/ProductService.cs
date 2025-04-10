@@ -21,13 +21,13 @@ namespace LinkDev.Talabat.Core.Application.Services.Products
 		{
 			var specs = new ProductWithBrandAndCategorySpecifications(specParams.Sort, specParams.BrandId, specParams.CategoryId, specParams.PageSize, specParams.PageIndex, specParams.Search);
 
-			var products = await unitOfWork.GetRepsitory<Product, int>().GetAllWithSpecAsync(specs);
+			var products = await unitOfWork.GetRepository<Product, int>().GetAllWithSpecAsync(specs);
 
 			var data = mapper.Map<IEnumerable<ProductToReturnDto>>(products);
 
 			var countSpec = new ProductWithFilterationForCountSpecifications(specParams.BrandId, specParams.CategoryId, specParams.Search);
 
-			var count = await unitOfWork.GetRepsitory<Product, int>().GetCountAsync(countSpec);
+			var count = await unitOfWork.GetRepository<Product, int>().GetCountAsync(countSpec);
 
 			return new Pagination<ProductToReturnDto>(specParams.PageIndex, specParams.PageSize, count) { Data = data };
 		}
@@ -36,7 +36,7 @@ namespace LinkDev.Talabat.Core.Application.Services.Products
 		{
 			var specs = new ProductWithBrandAndCategorySpecifications(id);
 
-			var product = await unitOfWork.GetRepsitory<Product, int>().GetWithSpecAsync(specs);
+			var product = await unitOfWork.GetRepository<Product, int>().GetWithSpecAsync(specs);
 
 			if (product is null)
 				throw new NotFoundException(nameof(Product), id);
@@ -47,11 +47,11 @@ namespace LinkDev.Talabat.Core.Application.Services.Products
 		}
 
 		public async Task<IEnumerable<BrandDto>> GetBrandsAsync()
-		=> mapper.Map<IEnumerable<BrandDto>>(await unitOfWork.GetRepsitory<ProductBrand, int>().GetAllAsync());
+		=> mapper.Map<IEnumerable<BrandDto>>(await unitOfWork.GetRepository<ProductBrand, int>().GetAllAsync());
 
 
 		public async Task<IEnumerable<CategoryDto>> GetCategoriesAsync()
-		=> mapper.Map<IEnumerable<CategoryDto>>(await unitOfWork.GetRepsitory<ProductCategory, int>().GetAllAsync());
+		=> mapper.Map<IEnumerable<CategoryDto>>(await unitOfWork.GetRepository<ProductCategory, int>().GetAllAsync());
 
 	}
 }
