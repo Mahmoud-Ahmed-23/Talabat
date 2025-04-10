@@ -1,22 +1,13 @@
-
-using LinkDev.Talabat.APIs.Controllers;
+using LinkDev.Talabat.APIs.Controllers.Errors;
+using LinkDev.Talabat.APIs.Extensions;
+using LinkDev.Talabat.APIs.Middelwares;
 using LinkDev.Talabat.APIs.Services;
+using LinkDev.Talabat.Core.Application;
 using LinkDev.Talabat.Core.Application.Abstraction;
+using LinkDev.Talabat.Infratructure;
 using LinkDev.Talabat.Infratructure.Persistence;
 using LinkDev.Talabat.Infratructure.Persistence.Data;
-using Microsoft.EntityFrameworkCore;
-using System.Reflection;
-using LinkDev.Talabat.Core.Application;
 using Microsoft.AspNetCore.Mvc;
-using LinkDev.Talabat.APIs.Middelwares;
-using LinkDev.Talabat.Infratructure;
-using Microsoft.AspNetCore.Identity;
-using LinkDev.Talabat.Core.Domain.Entities.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using LinkDev.Talabat.Infratructure.Persistence._Identity;
-using LinkDev.Talabat.APIs.Extensions;
-using LinkDev.Talabat.Core.Domain.Contracts.Persistence;
-using LinkDev.Talabat.APIs.Controllers.Errors;
 namespace LinkDev.Talabat.APIs
 {
 	public class Program
@@ -71,14 +62,7 @@ namespace LinkDev.Talabat.APIs
 
 			await app.InitializerStoreIdentityContextAsync();
 
-			using var Scope = app.Services.CreateAsyncScope();
-
-			var Services = Scope.ServiceProvider;
-
-			var dbContext = Services.GetRequiredService<StoreDbContext>();
-
-			var LoggerFactory = Services.GetRequiredService<ILoggerFactory>();
-
+			
 
 			#region Configure Kestrel Middlewares
 

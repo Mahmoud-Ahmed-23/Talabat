@@ -20,9 +20,8 @@ namespace LinkDev.Talabat.Core.Application.Services.Orders
 	{
 		public async Task<OrderToReturnDto> CreateOrderAsync(string buyerEmail, OrderToCreateDto order)
 		{
-			//1-get basket fom basket repo
 			var basket = await basketService.GetCustomerBasketAsync(order.BasketId);
-			//2- get selected items basket from products repo
+
 			var orderItems = new List<OrderItem>();
 			if (basket.Items.Count() > 0)
 			{
@@ -67,7 +66,7 @@ namespace LinkDev.Talabat.Core.Application.Services.Orders
 				LastModifiedBy = "",
 			};
 			await unitOfWork.GetRepository<Order, int>().AddAsync(orderToCreate);
-			//6-save to database
+
 			var created = await unitOfWork.CompleteAsync() > 0;
 			if (!created) throw new BadRequestException("an error has been occured during creating order");
 			return mapper.Map<OrderToReturnDto>(orderToCreate);

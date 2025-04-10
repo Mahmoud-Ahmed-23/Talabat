@@ -31,7 +31,8 @@ namespace LinkDev.Talabat.APIs.Extensions
 				identityOptions.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromHours(5);
 
 
-			}).AddEntityFrameworkStores<StoreIdentityDbContext>();
+			})
+				.AddEntityFrameworkStores<StoreIdentityDbContext>();
 
 			services.AddScoped(typeof(IAuthService), typeof(AuthService));
 
