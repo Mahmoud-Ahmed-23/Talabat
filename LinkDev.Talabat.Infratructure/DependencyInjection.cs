@@ -1,8 +1,10 @@
 ﻿using LinkDev.Talabat.Core.Domain.Contracts.Infrastructure;
 using LinkDev.Talabat.Core.Domain.Contracts.Persistence;
 using LinkDev.Talabat.Infratructure.Basket_Repository;
+using LinkDev.Talabat.Infratructure.Payment;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Shared.Models;
 using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
@@ -16,7 +18,7 @@ namespace LinkDev.Talabat.Infratructure
 	{
 		public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
 		{
-			
+
 			services.AddSingleton(typeof(IConnectionMultiplexer), (serviceProvider) =>
 			{
 				var connectionstring = configuration.GetConnectionString("Redis");
@@ -27,7 +29,9 @@ namespace LinkDev.Talabat.Infratructure
 
 			});
 
-			services.AddScoped(typeof(IBasketRepository),typeof(BasketRepository));
+			services.AddScoped(typeof(IBasketRepository), typeof(BasketRepository));
+
+			services.AddScoped(typeof(IPaymentService), typeof(PaymentService));
 
 			return services;
 		}
