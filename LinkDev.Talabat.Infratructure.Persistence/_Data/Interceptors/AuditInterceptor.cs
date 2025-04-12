@@ -19,6 +19,8 @@ namespace LinkDev.Talabat.Infratructure.Persistence.Data.Interceptors
 			_loggedInUserService = loggedInUserService;
 		}
 
+		
+
 		public override ValueTask<InterceptionResult<int>> SavingChangesAsync(DbContextEventData eventData, InterceptionResult<int> result, CancellationToken cancellationToken = default)
 		{
 			UpdateData(eventData.Context);

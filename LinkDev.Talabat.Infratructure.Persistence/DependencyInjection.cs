@@ -20,15 +20,16 @@ namespace LinkDev.Talabat.Infratructure.Persistence
 		{
 			#region Store DbContext
 
-			services.AddDbContext<StoreDbContext>(optionsBuilder =>
+			services.AddDbContext<StoreDbContext>((serviceProvider, optionsBuilder) =>
 			{
-				optionsBuilder.UseSqlServer(configuration.GetConnectionString("StoreContext"));
+				optionsBuilder.UseSqlServer(configuration.GetConnectionString("StoreContext"))
+				.AddInterceptors(serviceProvider.GetRequiredService<AuditInterceptor>());
 			});
 
 
 			services.AddScoped(typeof(IStoreDbInitializer), typeof(StoreDbInitializer));
 
-			services.AddScoped(typeof(ISaveChangesInterceptor), typeof(AuditInterceptor));
+			services.AddScoped(typeof(AuditInterceptor));
 
 			#endregion
 
